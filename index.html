@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
     <style>
         :root {
-            /* الألوان الجديدة: أزرق وأبيض */
             --primary-blue: #2563eb;
             --blue-light: #60a5fa;
             --blue-dark: #1e40af;
@@ -17,13 +16,19 @@
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --border-color: #e2e8f0;
-            
-            --radius-lg: 28px;
-            --radius-md: 18px;
-            --radius-sm: 12px;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --tab-height: 60px;
         }
 
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Tajawal', sans-serif;
@@ -31,216 +36,330 @@
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
+            padding-bottom: var(--tab-height);
+            font-size: 15px;
         }
 
         .bg-glow-1 {
-            position: fixed; width: 420px; height: 420px;
-            background: var(--primary-blue); border-radius: 50%;
-            filter: blur(80px); top: -120px; right: -120px;
-            opacity: 0.12; pointer-events: none; z-index: 0;
-            will-change: transform;
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            filter: blur(80px);
+            top: -100px;
+            right: -100px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
             animation: floatBg1 15s ease-in-out infinite alternate;
         }
         .bg-glow-2 {
-            position: fixed; width: 320px; height: 320px;
-            background: #38bdf8; border-radius: 50%;
-            filter: blur(80px); bottom: -100px; left: -100px;
-            opacity: 0.1; pointer-events: none; z-index: 0;
-            will-change: transform;
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            background: #38bdf8;
+            border-radius: 50%;
+            filter: blur(80px);
+            bottom: -80px;
+            left: -80px;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
             animation: floatBg2 18s ease-in-out infinite alternate;
         }
         .bg-radial {
-            position: fixed; inset: 0; pointer-events: none; z-index: 0;
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.04) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(56,189,248,0.03) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.04) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(56, 189, 248, 0.03) 0%, transparent 50%);
         }
 
         @keyframes floatBg1 {
-            0%   { transform: translate3d(0,0,0) scale(1); }
-            100% { transform: translate3d(30px,-30px,0) scale(1.1); }
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+            100% {
+                transform: translate3d(20px, -20px, 0) scale(1.1);
+            }
         }
         @keyframes floatBg2 {
-            0%   { transform: translate3d(0,0,0) scale(1); }
-            100% { transform: translate3d(-20px,20px,0) scale(1.08); }
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+            100% {
+                transform: translate3d(-15px, 15px, 0) scale(1.08);
+            }
         }
         @keyframes floatPrize {
-            0%,100% { transform: translate3d(0,0,0); }
-            50%      { transform: translate3d(0,-12px,0); }
+            0%,
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+            50% {
+                transform: translate3d(0, -8px, 0);
+            }
         }
         @keyframes shimmer {
-            0%,100% { opacity: 1; }
-            50%      { opacity: 0.85; }
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.85;
+            }
         }
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .app {
-            min-height: 100vh; position: relative; z-index: 10;
-            display: flex; align-items: center; justify-content: center;
-            padding: 40px 16px;
-        }
-        .content { width: 100%; max-width: 660px; text-align: center; }
-
-        .brand-icon {
-            width: 68px; height: 68px; margin: 0 auto 14px;
-            background: rgba(37,99,235,0.08);
-            border: 1px solid rgba(37,99,235,0.15);
-            border-radius: 18px; display: flex; align-items: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 24px rgba(37,99,235,0.1);
+            padding: 20px 12px calc(20px + var(--tab-height));
         }
-        .brand-icon svg { width: 32px; height: 32px; fill: var(--primary-blue); }
+        .content {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        /* ===== الأقسام (صفحات) ===== */
+        .page-section {
+            display: none;
+            animation: fadeUp 0.3s ease;
+        }
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== قسم المسابقة (الحالي) ===== */
+        .brand-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 10px;
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
+        }
+        .brand-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--primary-blue);
+        }
 
         .brand-title {
-            font-size: clamp(30px,6vw,40px); font-weight: 900;
+            font-size: clamp(26px, 5vw, 34px);
+            font-weight: 900;
             background: linear-gradient(to left, var(--blue-dark) 30%, var(--primary-blue));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 1.1; margin-bottom: 6px;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            margin-bottom: 4px;
         }
         .brand-subtitle {
-            font-size: 12px; color: var(--text-secondary);
-            letter-spacing: 3px; font-weight: 700;
-            text-transform: uppercase; margin-bottom: 28px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
         .prize-wrapper {
-            max-width: 220px; margin: 0 auto 28px;
+            max-width: 160px;
+            margin: 0 auto 18px;
             position: relative;
         }
         .prize-img {
-            width: 100%; display: block;
+            width: 100%;
+            display: block;
             border-radius: 15%;
-            will-change: transform;
             animation: floatPrize 4s ease-in-out infinite;
-            filter: drop-shadow(0 18px 28px rgba(37,99,235,0.15));
+            filter: drop-shadow(0 12px 20px rgba(37, 99, 235, 0.12));
         }
         .prize-glow {
-            position: absolute; bottom: -10px; left: 50%;
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
             transform: translateX(-50%);
-            width: 60%; height: 20px;
-            background: radial-gradient(ellipse, rgba(37,99,235,0.2) 0%, transparent 70%);
-            filter: blur(8px);
+            width: 50%;
+            height: 14px;
+            background: radial-gradient(ellipse, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+            filter: blur(6px);
         }
 
         .main-title {
-            font-size: clamp(26px,5vw,38px); font-weight: 900;
-            color: var(--text-main); margin-bottom: 8px;
-            will-change: opacity;
+            font-size: clamp(24px, 4.5vw, 32px);
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 6px;
             animation: shimmer 3s ease-in-out infinite;
         }
         .sub-title {
-            font-size: clamp(14px,2.5vw,16px);
-            color: var(--text-secondary); margin-bottom: 32px;
+            font-size: clamp(13px, 2vw, 15px);
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.6;
         }
 
         .timer-grid {
-            display: grid; grid-template-columns: repeat(4,1fr);
-            gap: 12px; margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 18px;
         }
         .time-box {
             background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: 14px; padding: 16px 8px; text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border-radius: var(--radius-sm);
+            padding: 12px 4px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
         .time-box span {
-            display: block; font-size: clamp(26px,6vw,36px);
-            font-weight: 900; color: var(--primary-blue); line-height: 1.1;
+            display: block;
+            font-size: clamp(22px, 5vw, 30px);
+            font-weight: 900;
+            color: var(--primary-blue);
+            line-height: 1.1;
         }
         .time-box small {
-            font-size: 11px; color: var(--text-muted);
-            font-weight: 700; letter-spacing: 0.5px;
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .stats-container {
-            display: flex; align-items: center; justify-content: space-around;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
             background: #ffffff;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 18px 24px; margin-bottom: 24px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
-        .stat-item { text-align: center; }
+        .stat-item {
+            text-align: center;
+        }
         .stat-label {
-            font-size: 11px; color: var(--text-muted);
-            font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
-        .stat-value { font-size: 28px; font-weight: 900; color: var(--primary-blue); }
-        .stat-divider { width: 1px; height: 48px; background: var(--border-color); }
-
-        .progress-wrap { margin-bottom: 24px; }
-        .progress-labels {
-            display: flex; justify-content: space-between; margin-bottom: 8px;
+        .stat-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary-blue);
         }
-        .progress-labels span:first-child { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-        .progress-labels span:last-child  { font-size: 12px; color: var(--primary-blue); font-weight: 700; }
-        .progress-bar-bg {
-            background: rgba(37,99,235,0.1);
-            border-radius: 100px; height: 8px; overflow: hidden;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(to left, var(--primary-blue), var(--blue-light));
-            border-radius: 100px;
+        .stat-divider {
+            width: 1px;
+            height: 36px;
+            background: var(--border-color);
         }
 
         .price-badge {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: rgba(37,99,235,0.06);
-            border: 1px solid rgba(37,99,235,0.15);
-            padding: 12px 28px; border-radius: 100px;
-            font-size: 15px; color: var(--text-secondary);
-            margin-bottom: 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 99, 235, 0.06);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
         }
-        .price-badge strong { font-size: 22px; color: var(--primary-blue); font-weight: 900; }
+        .price-badge strong {
+            font-size: 20px;
+            color: var(--primary-blue);
+            font-weight: 900;
+        }
 
         .btn-primary {
-            display: block; width: 100%; padding: 19px;
-            border-radius: var(--radius-md); border: none;
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            border: none;
             background: linear-gradient(145deg, var(--primary-blue), var(--blue-dark));
-            color: #ffffff; font-size: clamp(16px,3vw,19px);
-            font-weight: 900; font-family: 'Tajawal', sans-serif;
-            cursor: pointer; margin-bottom: 12px;
-            box-shadow: 0 6px 20px rgba(37,99,235,0.25);
+            color: #ffffff;
+            font-size: clamp(15px, 2.5vw, 17px);
+            font-weight: 900;
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
             transition: transform 0.2s, box-shadow 0.2s;
-            display: flex; align-items: center; justify-content: center;
-            gap: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37,99,235,0.35);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
         }
         .btn-primary:disabled {
             background: var(--border-color);
             color: var(--text-muted);
-            cursor: not-allowed; transform: none; box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         .spinner {
             display: inline-block;
-            width: 22px;
-            height: 22px;
-            border: 3px solid rgba(255,255,255,0.3);
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: #ffffff;
             animation: spin 0.7s linear infinite;
             flex-shrink: 0;
         }
         .btn-primary:disabled .spinner {
-            border-color: rgba(148,163,184,0.3);
-            border-top-color: rgba(148,163,184,0.8);
+            border-color: rgba(148, 163, 184, 0.3);
+            border-top-color: rgba(148, 163, 184, 0.8);
         }
 
         .how-to-link {
             display: inline-block;
-            font-size: 15px;
+            font-size: 14px;
             color: var(--primary-blue);
             text-decoration: underline;
-            text-underline-offset: 4px;
+            text-underline-offset: 3px;
             cursor: pointer;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
             transition: color 0.3s;
             font-weight: 700;
         }
@@ -248,107 +367,372 @@
             color: var(--blue-dark);
         }
 
-        .footer-note { font-size: 12px; color: var(--text-muted); line-height: 1.7; font-weight: 500;}
-
-        .modal-overlay {
-            position: fixed; inset: 0;
-            background: rgba(15,23,42,0.7);
-            backdrop-filter: blur(6px);
-            display: none; align-items: center; justify-content: center;
-            z-index: 999; padding: 20px;
-            opacity: 0; transition: opacity 0.3s ease;
+        .footer-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 500;
         }
-        .modal-overlay.open { display: flex; opacity: 1; }
+
+        /* ===== قسم معلومات عنا ===== */
+        .about-text {
+            text-align: right;
+            color: var(--text-secondary);
+            line-height: 2;
+            font-size: 15px;
+            font-weight: 500;
+            margin: 20px 0 28px;
+        }
+        .about-text p {
+            margin-bottom: 16px;
+        }
+        .about-text strong {
+            color: var(--primary-blue);
+            font-weight: 800;
+        }
+        .about-highlight {
+            background: rgba(37, 99, 235, 0.04);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+        .about-highlight p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        .about-highlight strong {
+            color: var(--primary-blue);
+            font-weight: 800;
+        }
+
+        /* ===== قسم الفائزين السابقين ===== */
+        .winners-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 18px 0 24px;
+        }
+        .winner-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            transition: background 0.2s;
+        }
+        .winner-item:hover {
+            background: #f1f5f9;
+        }
+        .winner-info {
+            text-align: right;
+        }
+        .winner-name {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--text-main);
+        }
+        .winner-date {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .winner-prize {
+            font-weight: 900;
+            color: var(--primary-blue);
+            font-size: 16px;
+            background: rgba(37, 99, 235, 0.06);
+            padding: 3px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+        .winner-prize small {
+            font-weight: 500;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .section-title {
+            font-size: clamp(22px, 3.5vw, 28px);
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+        .section-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        /* ===== التاب بار السفلي ===== */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--tab-height);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: stretch;
+            justify-content: space-around;
+            z-index: 100;
+            padding: 3px 4px;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+        }
+        .tab-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
+            border: none;
+            background: transparent;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            padding: 2px 4px;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .tab-btn .tab-icon {
+            font-size: 18px;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tab-btn .tab-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+        .tab-btn .tab-label {
+            font-size: 9px;
+            letter-spacing: 0.2px;
+            font-weight: 700;
+            margin-top: 1px;
+        }
+        .tab-btn.active {
+            color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.06);
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 25%;
+            right: 25%;
+            height: 2.5px;
+            background: var(--primary-blue);
+            border-radius: 0 0 4px 4px;
+        }
+        .tab-btn:hover:not(.active) {
+            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        /* ===== المودالات ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 16px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
 
         .modal-content {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg); width: 100%; max-width: 460px;
-            padding: 32px; box-shadow: 0 24px 48px rgba(0,0,0,0.1);
-            max-height: 90vh; overflow-y: auto;
-            transform: translateY(20px); transition: transform 0.3s ease;
-            will-change: transform;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 420px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(16px);
+            transition: transform 0.25s ease;
         }
-        .modal-overlay.open .modal-content { transform: translateY(0); }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
+        }
 
         .modal-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 24px; padding-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
             border-bottom: 1px solid var(--border-color);
         }
-        .modal-header h3 { font-size: 22px; color: var(--text-main); font-weight: 800; }
+        .modal-header h3 {
+            font-size: 20px;
+            color: var(--text-main);
+            font-weight: 800;
+        }
 
         .btn-close {
-            background: var(--bg-main); border: 1px solid var(--border-color);
-            color: var(--text-main); width: 36px; height: 36px;
-            border-radius: 8px; cursor: pointer; font-size: 18px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
             transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .btn-close:hover { background: var(--border-color); }
+        .btn-close:hover {
+            background: var(--border-color);
+        }
 
-        .input-group { margin-bottom: 20px; text-align: right; }
-        .input-group > label {
-            display: block; font-size: 14px;
-            color: var(--text-secondary); margin-bottom: 10px; font-weight: 700;
+        .input-group {
+            margin-bottom: 16px;
+            text-align: right;
+        }
+        .input-group>label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 700;
         }
 
         .transfer-card {
-            background: rgba(37,99,235,0.04);
+            background: rgba(37, 99, 235, 0.04);
             border: 1px dashed var(--primary-blue);
-            padding: 18px; border-radius: 16px;
-            text-align: center; cursor: pointer; transition: background 0.2s;
+            padding: 14px;
+            border-radius: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        .transfer-card:hover { background: rgba(37,99,235,0.08); }
-        .transfer-number { font-size: 24px; font-weight: 900; color: var(--primary-blue); letter-spacing: 3px; }
-        .transfer-hint { font-size: 12px; color: var(--text-secondary); margin-top: 4px; font-weight: 600;}
+        .transfer-card:hover {
+            background: rgba(37, 99, 235, 0.08);
+        }
+        .transfer-number {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--primary-blue);
+            letter-spacing: 2px;
+        }
+        .transfer-hint {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 3px;
+            font-weight: 600;
+        }
 
         .fee-reminder {
-            background: rgba(37,99,235,0.04);
-            border: 1px solid rgba(37,99,235,0.15);
-            border-radius: 12px; padding: 12px 16px; margin-bottom: 20px;
-            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(37, 99, 235, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .fee-reminder span { color: var(--text-secondary); font-size: 14px; font-weight: 600;}
-        .fee-reminder strong { color: var(--primary-blue); font-weight: 900; font-size: 18px; }
+        .fee-reminder span {
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .fee-reminder strong {
+            color: var(--primary-blue);
+            font-weight: 900;
+            font-size: 17px;
+        }
 
         .glass-input {
-            width: 100%; background: #ffffff;
+            width: 100%;
+            background: #ffffff;
             border: 1px solid #cbd5e1;
-            padding: 15px 16px; border-radius: 12px;
-            color: var(--text-main); font-family: 'Tajawal', sans-serif;
-            font-size: 16px; font-weight: 600; outline: none;
-            direction: ltr; text-align: right; transition: all 0.3s;
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            color: var(--text-main);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            outline: none;
+            direction: ltr;
+            text-align: right;
+            transition: all 0.3s;
         }
         .glass-input::placeholder {
             color: var(--text-muted);
             font-weight: 400;
         }
-        .glass-input:focus, .glass-input.valid { 
-            border-color: var(--primary-blue); 
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        .glass-input:focus,
+        .glass-input.valid {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
         }
 
         .upload-area {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             background: #f8fafc;
             border: 1px dashed #cbd5e1;
-            padding: 16px; border-radius: 12px; cursor: pointer;
-            color: var(--primary-blue); font-size: 14px; font-weight: 700;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: var(--primary-blue);
+            font-size: 13px;
+            font-weight: 700;
             transition: background 0.2s;
         }
-        .upload-area:hover { background: #f1f5f9; }
+        .upload-area:hover {
+            background: #f1f5f9;
+        }
 
-        .file-name { margin-top: 8px; font-size: 13px; color: var(--primary-blue); font-weight: 700; display: none; }
+        .file-name {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--primary-blue);
+            font-weight: 700;
+            display: none;
+        }
 
         .how-to-text {
             text-align: right;
             color: var(--text-secondary);
             line-height: 1.9;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
         }
         .how-to-text p {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         .how-to-text strong {
             color: var(--primary-blue);
@@ -356,293 +740,568 @@
         }
 
         .toast {
-            position: fixed; bottom: -60px; left: 50%;
+            position: fixed;
+            bottom: calc(var(--tab-height) + 16px);
+            left: 50%;
             transform: translateX(-50%);
-            background: var(--text-main); color: #fff;
-            padding: 12px 28px; border-radius: 50px;
-            font-weight: 700; font-size: 15px;
-            opacity: 0; transition: all 0.3s ease;
-            z-index: 2000; white-space: nowrap;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            background: var(--text-main);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            white-space: nowrap;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
         }
-        .toast.show { bottom: 30px; opacity: 1; }
+        .toast.show {
+            bottom: calc(var(--tab-height) + 24px);
+            opacity: 1;
+        }
 
-        @media (max-width: 600px) {
-            .app { padding: 30px 12px; }
-            .timer-grid { gap: 8px; }
-            .time-box { padding: 12px 4px; }
-            .modal-content { padding: 24px 18px; }
-            .stats-container { padding: 14px 12px; }
+        @media (max-width: 480px) {
+            .app {
+                padding: 16px 8px calc(16px + var(--tab-height));
+            }
+            .timer-grid {
+                gap: 5px;
+            }
+            .time-box {
+                padding: 8px 2px;
+            }
+            .time-box span {
+                font-size: 20px;
+            }
+            .modal-content {
+                padding: 18px 14px;
+            }
+            .stats-container {
+                padding: 10px 12px;
+            }
+            .stats-container .stat-value {
+                font-size: 20px;
+            }
+            .winner-item {
+                padding: 10px 12px;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .winner-prize {
+                font-size: 14px;
+                padding: 2px 10px;
+            }
+            .winner-name {
+                font-size: 14px;
+            }
+            .tab-btn .tab-icon svg {
+                width: 16px;
+                height: 16px;
+            }
+            .tab-btn .tab-label {
+                font-size: 8px;
+            }
+            .brand-icon {
+                width: 48px;
+                height: 48px;
+            }
+            .brand-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+            .prize-wrapper {
+                max-width: 130px;
+                margin-bottom: 14px;
+            }
+            .main-title {
+                font-size: 22px;
+            }
+            .btn-primary {
+                padding: 14px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="bg-glow-1"></div>
-<div class="bg-glow-2"></div>
-<div class="bg-radial"></div>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    <div class="bg-radial"></div>
 
-<div class="app">
-    <div class="content">
-        <div class="brand-icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H8v2h8v-2h-3v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
-            </svg>
-        </div>
-        <div class="brand-title">الكسيب</div>
-        <div class="brand-subtitle">سحب حصري</div>
+    <div class="app">
+        <div class="content">
 
-        <div class="prize-wrapper">
-            <img class="prize-img" src="coins.png" alt="جوائز ذهبية" />
-            <div class="prize-glow"></div>
-        </div>
+<!-- ========================================= -->
+            <!-- قسم: معلومات عنا                          -->
+            <!-- ========================================= -->
+            <div id="section-why" class="page-section">
+                <div class="brand-icon" style="margin-bottom:10px;">
+                    <svg viewBox="0 0 24 24" style="fill:var(--primary-blue);">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                </div>
+                <h2 class="section-title">📖 معلومات عنا</h2>
+                <p class="section-desc">تعرف على الكسيب.. منصة المسابقات المتنوعة بجوائز عشوائية!</p>
 
-        <h1 class="main-title">32600 Coins</h1>
-        <p class="sub-title">فرصة للاعبين eFootball™.. مسابقة الـ 32 ألف كوين، مقعد واحد فقط بانتظار الرابح! شارك الآن واغتنم فرصتك لتكون أنت المحظوظ.</p>
+                <div class="about-text">
+                    <p>
+                        <strong>الكسيب</strong> هي منصة مسابقات (يومية، أسبوعية، وشهرية) نقدم فيها جوائز <strong>عشوائية وغير محددة</strong> تختلف على حسب كل مسابقة.
+                    </p>
+                    <p>
+                        في كل مسابقة يتم اختيار <strong>فائز واحد فقط</strong>، مما يضمن لك فرصة حقيقية ومباشرة للفوز بالجائزة المطروحة.
+                    </p>
+                    <p>
+                        <strong>كيف تشارك؟</strong> اضغط على زر "شارك الآن"، سيظهر لك رقم لتحويل رسوم الاشتراك (25 جنيهاً من فودافون كاش أو أي محفظة إلكترونية). اكتب الرقم الذي حولت منه، ارفع سكرين شوت التحويل، ثم اضغط <strong>تأكيد وإرسال</strong>.
+                    </p>
+                    <p>
+                        <strong>ماذا بعد التأكيد؟</strong> سيتم توجيهك تلقائياً لتطبيق واتساب وستجد رسالة جاهزة. كل ما عليك هو إرسالها وانتظار رد الإدارة (بالموافقة: "تم التسجيل في المسابقة" أو بالرفض).
+                    </p>
+                </div>
 
-        <div class="timer-grid">
-            <div class="time-box"><span id="days">00</span><small>يوم</small></div>
-            <div class="time-box"><span id="hours">00</span><small>ساعة</small></div>
-            <div class="time-box"><span id="minutes">00</span><small>دقيقة</small></div>
-            <div class="time-box"><span id="seconds">00</span><small>ثانية</small></div>
-        </div>
-
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-label">المشتركين</div>
-                <div class="stat-value">...</div>
+                <div class="about-highlight" style="text-align: right; margin-top: 12px;">
+                    <p style="margin-bottom: 14px; color: var(--text-main);">
+                        🎁 <strong>مفاجأة:</strong> يمكنك أيضاً الكسب بدون المشاركة في المسابقات أو دفع أي رسوم! لمعرفة كيف، تواصل معي هنا:
+                    </p>
+                    <!-- زر الواتساب -->
+                    <a href="https://wa.me/201157590408" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #25D366; color: white; padding: 12px 18px; border-radius: var(--radius-md); text-decoration: none; font-weight: 800; font-size: 15px; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2); width: 100%; transition: transform 0.2s;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.031 0C5.383 0 0 5.383 0 12.032c0 2.127.556 4.195 1.613 6.012L.197 24l6.11-1.605c1.745.962 3.722 1.468 5.724 1.468 6.648 0 12.03-5.383 12.03-12.03S18.679 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.068-1.39l-.364-.216-3.766.987.998-3.673-.237-.377a10.021 10.021 0 0 1-1.534-5.337C2.06 6.505 6.536 2.03 12.031 2.03c2.668 0 5.176 1.04 7.062 2.925 1.886 1.885 2.925 4.394 2.925 7.062 0 5.495-4.476 9.97-9.97 9.97h-.017zm5.474-7.469c-.3-.15-1.776-.877-2.05-.978-.274-.101-.475-.15-.675.15-.2.3-.775.978-.95 1.178-.175.201-.35.226-.65.076-1.517-.76-2.617-1.425-3.616-3.15-.175-.3-.018-.462.131-.612.135-.135.3-.35.45-.526.15-.175.2-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.675-1.625-.925-2.225-.243-.585-.492-.505-.675-.515-.175-.01-.375-.01-.575-.01-.2 0-.525.075-.8.375-.275.3-1.05 1.025-1.05 2.5s1.075 2.899 1.225 3.1 1.701 2.599 4.124 3.645c2.316 1.002 2.656.8 3.131.75.475-.05 1.775-.725 2.025-1.425.25-.7.25-1.3.175-1.425-.075-.125-.275-.2-.575-.35z"/>
+                        </svg>
+                        تواصل معي على واتساب
+                        <span style="direction: ltr; font-weight: 900; margin-right: 4px; font-family: sans-serif;">01157590408</span>
+                    </a>
+                </div>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <div class="stat-label">المقاعد المتبقية</div>
-                <div class="stat-value">...</div>
+            <!-- ========================================= -->
+            <!-- قسم: المسابقة (الصفحة الرئيسية)           -->
+            <!-- ========================================= -->
+            <div id="section-contest" class="page-section active">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H8v2h8v-2h-3v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
+                    </svg>
+                </div>
+                <div class="brand-title">الكسيب</div>
+                <div class="brand-subtitle">سحب حصري</div>
+
+                <div class="prize-wrapper">
+                    <img class="prize-img" src="coins.png" alt="جوائز ذهبية" />
+                    <div class="prize-glow"></div>
+                </div>
+
+                <h1 class="main-title">32600 Coins</h1>
+                <p class="sub-title">فرصة للاعبين eFootball™.. مسابقة الـ 32 ألف كوين، مقعد واحد فقط بانتظار الرابح! شارك الآن واغتنم فرصتك لتكون أنت المحظوظ.</p>
+
+                <div class="timer-grid">
+                    <div class="time-box"><span id="days">00</span><small>يوم</small></div>
+                    <div class="time-box"><span id="hours">00</span><small>ساعة</small></div>
+                    <div class="time-box"><span id="minutes">00</span><small>دقيقة</small></div>
+                    <div class="time-box"><span id="seconds">00</span><small>ثانية</small></div>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-label">المشتركين</div>
+                        <div class="stat-value" id="subscribersCount">550</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-label">المقاعد المتبقية</div>
+                        <div class="stat-value" id="remainingSeats">1450</div>
+                    </div>
+                </div>
+
+                <div class="price-badge">
+                    <span>رسوم المشاركة</span>
+                    <strong>25.00 EGP</strong>
+                </div>
+
+                <button class="btn-primary" id="mainSubmitBtn" onclick="openModal()">شارك الآن – ادخل السحب</button>
+
+                <span class="how-to-link" onclick="openHowToModal()">تعرف على كيفية المشاركة</span>
+
+                <p class="footer-note">بالمشاركة، أنت توافق على الشروط والأحكام. يتم التحقق من جميع الدفعات يدوياً.</p>
             </div>
-        </div>
 
-        <div class="price-badge">
-            <span>رسوم المشاركة</span>
-            <strong>25.00 EGP</strong>
-        </div>
+            <!-- ========================================= -->
+            <!-- قسم: الفائزين السابقين                     -->
+            <!-- ========================================= -->
+            <div id="section-winners" class="page-section">
+                <div class="brand-icon" style="margin-bottom:10px;">
+                    <svg viewBox="0 0 24 24" style="fill:var(--primary-blue);">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <h2 class="section-title">🥇 الفائزين السابقين</h2>
+                <p class="section-desc">نفخر بشفافيتنا، إليك قائمة بأحدث الفائزين في مسابقات الكسيب:</p>
 
-        <button class="btn-primary" id="mainSubmitBtn" onclick="openModal()">شارك الآن – ادخل السحب</button>
-        
-        <span class="how-to-link" onclick="openHowToModal()">تعرف على كيفية المشاركة</span>
+                <div class="winners-list">
+                    <div class="winner-item">
+                        <div class="winner-info">
+                            <div class="winner-name">مصطفى البرازيلي</div>
+                            <div class="winner-date">28 يونيو 2026</div>
+                        </div>
+                        <div class="winner-prize">1,092 <small>كوين</small></div>
+                    </div>
+                    <div class="winner-item">
+                        <div class="winner-info">
+                            <div class="winner-name">يوسف خالد</div>
+                            <div class="winner-date">18 مايو 2026</div>
+                        </div>
+                        <div class="winner-prize">12,600 <small>كوين</small></div>
+                    </div>
+                    <div class="winner-item">
+                        <div class="winner-info">
+                            <div class="winner-name">عمر محمد</div>
+                            <div class="winner-date">20 أبريل 2026</div>
+                        </div>
+                        <div class="winner-prize">6,090 <small>كوين</small></div>
+                    </div>
+                </div>
 
-        <p class="footer-note">بالمشاركة، أنت توافق على الشروط والأحكام. يتم التحقق من جميع الدفعات يدوياً.</p>
-    </div>
-</div>
-
-<div class="modal-overlay" id="paymentModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 id="modalTitle">تأكيد الاشتراك</h3>
-            <button class="btn-close" onclick="closeModal()">✕</button>
-        </div>
-
-        <div id="formContent">
-            <div class="input-group">
-                <label>📲 حول قيمة الاشتراك على هذا الرقم (اضغط للنسخ)</label>
-                <div class="transfer-card" onclick="copyNumber()">
-                    <div class="transfer-number">01080525816</div>
-                    <div class="transfer-hint">اضغط للنسخ</div>
+                <div style="background:rgba(37,99,235,0.04);border-radius:var(--radius-md);padding:14px;border:1px solid var(--border-color);margin-top:6px;">
+                    <p style="font-size:13px;color:var(--text-secondary);font-weight:600;">
+                        🏅 <strong style="color:var(--primary-blue);">وأنت القادم!</strong> اشترك الآن واكتب اسمك في قائمة الفائزين المقبلة.
+                    </p>
                 </div>
             </div>
 
-            <div class="fee-reminder">
-                <span>رسوم الاشتراك</span>
-                <strong>25.00 EGP</strong>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- شريط التنقل السفلي (مع عكس الترتيب)      -->
+    <!-- ========================================= -->
+    <nav class="tab-bar" id="tabBar">
+        <!-- الأول: الفائزين (كان في اليمين) -->
+        <button class="tab-btn" data-target="section-winners">
+            <span class="tab-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+            </span>
+            <span class="tab-label">الفائزين</span>
+        </button>
+        <!-- الثاني: المسابقة (الوسط) -->
+        <button class="tab-btn active" data-target="section-contest">
+            <span class="tab-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                </svg>
+            </span>
+            <span class="tab-label">المسابقة</span>
+        </button>
+        <!-- الثالث: معلومات عنا (كان في اليسار) -->
+        <button class="tab-btn" data-target="section-why">
+            <span class="tab-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="9.09" y1="9" x2="9.1" y2="9" />
+                    <line x1="14.09" y1="9" x2="14.1" y2="9" />
+                    <path d="M9 15a3 3 0 0 0 6 0" />
+                </svg>
+            </span>
+            <span class="tab-label">معلومات عنا</span>
+        </button>
+    </nav>
+
+    <!-- ========================================= -->
+    <!-- مودال الدفع                               -->
+    <!-- ========================================= -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">تأكيد الاشتراك</h3>
+                <button class="btn-close" onclick="closeModal()">✕</button>
             </div>
 
-            <div class="input-group">
-                <label>رقم المحفظة المرسل منه</label>
-                <input class="glass-input" id="mFromPhone" type="tel"
+            <div id="formContent">
+                <div class="input-group">
+                    <label>📲 حول قيمة الاشتراك على هذا الرقم (اضغط للنسخ)</label>
+                    <div class="transfer-card" onclick="copyNumber()">
+                        <div class="transfer-number">01080525816</div>
+                        <div class="transfer-hint">اضغط للنسخ</div>
+                    </div>
+                </div>
+
+                <div class="fee-reminder">
+                    <span>رسوم الاشتراك</span>
+                    <strong>25.00 EGP</strong>
+                </div>
+
+                <div class="input-group">
+                    <label>رقم المحفظة المرسل منه</label>
+                    <input class="glass-input" id="mFromPhone" type="tel"
                     placeholder="01XXXXXXXXX" maxlength="11" oninput="onPhoneInput(this)" />
-            </div>
+                </div>
 
-            <div class="input-group">
-                <label>إيصال الدفع (سكرين شوت)</label>
-                <label class="upload-area">
-                    إرفاق صورة التحويل
-                    <input type="file" id="mScreenshot" accept="image/*"
+                <div class="input-group">
+                    <label>إيصال الدفع (سكرين شوت)</label>
+                    <label class="upload-area">
+                        إرفاق صورة التحويل
+                        <input type="file" id="mScreenshot" accept="image/*"
                         style="display:none" onchange="onFileChange(this)" />
-                </label>
-                <div class="file-name" id="fileName"></div>
+                    </label>
+                    <div class="file-name" id="fileName"></div>
+                </div>
+
+                <button class="btn-primary" id="submitBtn" disabled onclick="handleSubmit()">
+                    <span id="submitText">تأكيد وإرسال</span>
+                    <span class="spinner" id="submitSpinner" style="display:none;"></span>
+                </button>
             </div>
-
-            <button class="btn-primary" id="submitBtn" disabled onclick="handleSubmit()">
-                <span id="submitText">تأكيد وإرسال</span>
-                <span class="spinner" id="submitSpinner" style="display:none;"></span>
-            </button>
         </div>
     </div>
-</div>
 
-<div class="modal-overlay" id="howToModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>كيفية المشاركة</h3>
-            <button class="btn-close" onclick="closeHowToModal()">✕</button>
-        </div>
-        <div class="how-to-text">
-            <p><strong>الكسيب.. الكل كسبان!</strong> بنعمل مسابقات على جوايز قيمة كل يوم، والكسبان بيكون واحد بس من المشتركين.</p>
-            <p>عشان تشارك في المسابقة بتضغط على زر <strong>شارك الآن</strong>، بيظهرلك رقم هتحول عليه مبلغ الاشتراك، وفيه خانة بتكتب فيها الرقم اللي حولت منه، والخانة الأخيرة بتدوس عليها وتختار سكرين شوت التحويل وبعدها بتدوس <strong>تأكيد وإرسال</strong>.</p>
-            <p>بعد الضغط على تأكيد هيتم توجيهك للواتساب وهتلاقي فيه رسالة جاهزة مكتوبة بالكود الخاص بيك لازم تبعت الرسالة للشات ال ظهرلك عشان لو انت سعيد الحظ نقدر نتواصل معاك.</p>
+    <!-- ========================================= -->
+    <!-- مودال "كيفية المشاركة"                    -->
+    <!-- ========================================= -->
+    <div class="modal-overlay" id="howToModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>كيفية المشاركة</h3>
+                <button class="btn-close" onclick="closeHowToModal()">✕</button>
+            </div>
+            <div class="how-to-text">
+                <p><strong>الكسيب.. الكل كسبان!</strong> بنعمل مسابقات على جوايز قيمة كل يوم، والكسبان بيكون واحد بس من المشتركين.</p>
+                <p>عشان تشارك في المسابقة بتضغط على زر <strong>شارك الآن</strong>، بيظهرلك رقم هتحول عليه مبلغ الاشتراك، وفيه خانة بتكتب فيها الرقم اللي حولت منه، والخانة الأخيرة بتدوس عليها وتختار سكرين شوت التحويل وبعدها بتدوس <strong>تأكيد وإرسال</strong>.</p>
+                <p>بعد الضغط على تأكيد هيتم توجيهك للواتساب وهتلاقي فيه رسالة جاهزة مكتوبة بالكود الخاص بيك لازم تبعت الرسالة للشات ال ظهرلك عشان لو انت سعيد الحظ نقدر نتواصل معاك.</p>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="toast" id="toast">✅ تم النسخ بنجاح</div>
+    <!-- ========================================= -->
+    <!-- Toast                                     -->
+    <!-- ========================================= -->
+    <div class="toast" id="toast">✅ تم النسخ بنجاح</div>
 
-<script>
-    const END_DATE = new Date("2026-07-15T23:59:59").getTime();
-    
-    const daysEl = document.getElementById("days");
-    const hoursEl = document.getElementById("hours");
-    const minutesEl = document.getElementById("minutes");
-    const secondsEl = document.getElementById("seconds");
+    <!-- ========================================= -->
+    <!-- JavaScript                                -->
+    <!-- ========================================= -->
+    <script>
+        // ===== العد التنازلي =====
+        const END_DATE = new Date("2026-07-15T23:59:59").getTime();
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
 
-    function pad(n){ return String(n).padStart(2,"0"); }
-    function tick(){
-        const diff = Math.max(0, END_DATE - Date.now());
-        daysEl.textContent    = pad(Math.floor(diff/(1000*60*60*24)));
-        hoursEl.textContent   = pad(Math.floor((diff/(1000*60*60))%24));
-        minutesEl.textContent = pad(Math.floor((diff/(1000*60))%60));
-        secondsEl.textContent = pad(Math.floor((diff/1000)%60));
-    }
-    tick(); setInterval(tick, 1000);
+        function pad(n) { return String(n).padStart(2, "0"); }
 
-    const paymentModal = document.getElementById("paymentModal");
-    const howToModal = document.getElementById("howToModal");
-
-    function openModal(){
-        paymentModal.classList.add("open");
-        document.body.style.overflow = "hidden";
-        document.getElementById("formContent").style.display = "block";
-        document.getElementById("modalTitle").textContent = "تأكيد الاشتراك";
-        document.getElementById("mFromPhone").value = "";
-        document.getElementById("mScreenshot").value = "";
-        document.getElementById("fileName").style.display = "none";
-        const submitBtn = document.getElementById("submitBtn");
-        submitBtn.disabled = true;
-        document.getElementById("submitText").style.display = "inline";
-        document.getElementById("submitSpinner").style.display = "none";
-        submitBtn.innerHTML = `<span id="submitText">تأكيد وإرسال</span><span class="spinner" id="submitSpinner" style="display:none;"></span>`;
-    }
-    function closeModal(){
-        paymentModal.classList.remove("open");
-        document.body.style.overflow = "";
-        // إعادة الزر لحالته الطبيعية
-        const submitBtn = document.getElementById("submitBtn");
-        submitBtn.disabled = true;
-        document.getElementById("submitText").style.display = "inline";
-        document.getElementById("submitSpinner").style.display = "none";
-        submitBtn.innerHTML = `<span id="submitText">تأكيد وإرسال</span><span class="spinner" id="submitSpinner" style="display:none;"></span>`;
-    }
-
-    function openHowToModal() {
-        howToModal.classList.add("open");
-        document.body.style.overflow = "hidden";
-    }
-    function closeHowToModal() {
-        howToModal.classList.remove("open");
-        document.body.style.overflow = "";
-    }
-
-    paymentModal.addEventListener("click", e => { if(e.target === paymentModal) closeModal(); });
-    howToModal.addEventListener("click", e => { if(e.target === howToModal) closeHowToModal(); });
-
-    document.addEventListener("keydown", e => { 
-        if(e.key === "Escape") {
-            closeModal(); 
-            closeHowToModal();
-        } 
-    });
-
-    let phoneOk = false, fileOk = false;
-    function updateSubmit(){ 
-        const btn = document.getElementById("submitBtn");
-        btn.disabled = !(phoneOk && fileOk);
-    }
-
-    function onPhoneInput(el){
-        el.value = el.value.replace(/\D/g,"").slice(0,11);
-        phoneOk = el.value.length === 11 && el.value.startsWith("01");
-        el.classList.toggle("valid", phoneOk);
-        updateSubmit();
-    }
-    function onFileChange(el){
-        fileOk = el.files.length > 0;
-        const fn = document.getElementById("fileName");
-        if(fileOk){ fn.textContent = "✅ " + el.files[0].name; fn.style.display = "block"; }
-        else { fn.style.display = "none"; }
-        updateSubmit();
-    }
-
-    function generateRandomCode() {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let result = '';
-        for (let i = 0; i < 4; i++) {
-            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        function tick() {
+            const diff = Math.max(0, END_DATE - Date.now());
+            daysEl.textContent = pad(Math.floor(diff / (1000 * 60 * 60 * 24)));
+            hoursEl.textContent = pad(Math.floor((diff / (1000 * 60 * 60)) % 24));
+            minutesEl.textContent = pad(Math.floor((diff / (1000 * 60)) % 60));
+            secondsEl.textContent = pad(Math.floor((diff / 1000) % 60));
         }
-        return result;
-    }
+        tick();
+        setInterval(tick, 1000);
 
-    async function handleSubmit(){
-        const submitBtn = document.getElementById("submitBtn");
-        const submitText = document.getElementById("submitText");
-        const submitSpinner = document.getElementById("submitSpinner");
+        // ===== إحصائيات تعتمد على الوقت =====
+        const subscribersEl = document.getElementById("subscribersCount");
+        const seatsEl = document.getElementById("remainingSeats");
+        let subscribers = 550;
+        let seats = 2000 - subscribers;
 
-        // تعطيل الزر وإظهار الـ spinner
-        submitBtn.disabled = true;
-        submitText.style.display = "none";
-        submitSpinner.style.display = "inline-block";
+        // تاريخ بدء المسابقة (افتراضي)
+        const START_DATE = new Date("2026-06-01T00:00:00").getTime();
+        const TOTAL_TIME = END_DATE - START_DATE; // المدة الكلية بالمللي ثانية
 
-        const phone = document.getElementById("mFromPhone").value;
-        const fileInput = document.getElementById("mScreenshot");
-        const file = fileInput.files[0];
-        const randomCode = generateRandomCode();
+        function updateStats() {
+            const now = Date.now();
+            const elapsed = Math.max(0, now - START_DATE);
+            const progress = Math.min(1, elapsed / TOTAL_TIME);
 
-        const botToken = "8694964776:AAG5h0Tc4Zd26odtllmHiWn8j6hhV7CZECI"; 
-        const chatId = "8836417260"; 
+            // القاعدة الخطية من 550 إلى 2000
+            let base = 550 + Math.floor((2000 - 550) * progress);
 
-        const formData = new FormData();
-        formData.append("chat_id", chatId);
-        formData.append("photo", file);
-        formData.append("caption", "طلب اشتراك جديد\nرقم المحفظة المرسل منه: " + phone + "\nكود الاشتراك: " + randomCode);
+            // تذبذب عشوائي موجب (يعتمد على الوقت) يصل إلى 9
+            const randomOffset = Math.floor(Math.abs(Math.sin(now / 10000)) * 9);
 
-        try {
-            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-                method: "POST",
-                body: formData
+            let subscribersVal = Math.min(2000, base + randomOffset);
+            if (subscribersVal < 550) subscribersVal = 550;
+
+            subscribers = subscribersVal;
+            seats = 2000 - subscribers;
+
+            subscribersEl.textContent = subscribers;
+            seatsEl.textContent = seats;
+        }
+
+        // تحديث فوري ثم كل 5 ثوانٍ
+        updateStats();
+        setInterval(updateStats, 5000);
+
+        // ===== التبديل بين الأقسام (التاب بار) =====
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const sections = {
+            'section-why': document.getElementById('section-why'),
+            'section-contest': document.getElementById('section-contest'),
+            'section-winners': document.getElementById('section-winners')
+        };
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.dataset.target;
+                // إزالة active من جميع الأزرار
+                tabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // إخفاء جميع الأقسام
+                Object.values(sections).forEach(s => s.classList.remove('active'));
+                // إظهار القسم المستهدف
+                if (sections[targetId]) {
+                    sections[targetId].classList.add('active');
+                }
+
+                // إغلاق أي مودال مفتوح
+                closeModal();
+                closeHowToModal();
             });
+        });
 
-            if(response.ok) {
-                // فتح الواتساب مباشرة عبر التطبيق
-                const whatsappMsg = encodeURIComponent("مرحباً، لقد قمت بتأكيد الاشتراك وهذا هو كود الاشتراك الخاص بي: " + randomCode);
-                // استخدام protocol whatsapp:// لفتح التطبيق مباشرة
-                window.location.href = "whatsapp://send?phone=201157590408&text=" + whatsappMsg;
-            } else {
-                alert("حدث خطأ يرجى المحاولة مرة أخرى.");
-            }
-        } catch (error) {
-            alert("حدث خطأ يرجى التحقق من الإنترنت والمحاولة مجدداً.");
-        } finally {
-            // إعادة الزر لحالته (لكن بعد الانتقال للواتساب قد لا يظهر)
-            submitText.style.display = "inline";
-            submitSpinner.style.display = "none";
-            submitBtn.disabled = false;
-            // إغلاق المودال
-            closeModal();
+        // ===== المودالات =====
+        const paymentModal = document.getElementById("paymentModal");
+        const howToModal = document.getElementById("howToModal");
+
+        function openModal() {
+            paymentModal.classList.add("open");
+            document.body.style.overflow = "hidden";
+            document.getElementById("formContent").style.display = "block";
+            document.getElementById("modalTitle").textContent = "تأكيد الاشتراك";
+            document.getElementById("mFromPhone").value = "";
+            document.getElementById("mScreenshot").value = "";
+            document.getElementById("fileName").style.display = "none";
+            const submitBtn = document.getElementById("submitBtn");
+            submitBtn.disabled = true;
+            document.getElementById("submitText").style.display = "inline";
+            document.getElementById("submitSpinner").style.display = "none";
+            submitBtn.innerHTML =
+                `<span id="submitText">تأكيد وإرسال</span><span class="spinner" id="submitSpinner" style="display:none;"></span>`;
         }
-    }
 
-    function copyNumber(){
-        navigator.clipboard.writeText("01080525816").then(()=>{
-            const t = document.getElementById("toast");
-            t.classList.add("show");
-            setTimeout(()=> t.classList.remove("show"), 2500);
-        }).catch(()=>{});
-    }
-</script>
+        function closeModal() {
+            paymentModal.classList.remove("open");
+            document.body.style.overflow = "";
+            const submitBtn = document.getElementById("submitBtn");
+            submitBtn.disabled = true;
+            document.getElementById("submitText").style.display = "inline";
+            document.getElementById("submitSpinner").style.display = "none";
+            submitBtn.innerHTML =
+                `<span id="submitText">تأكيد وإرسال</span><span class="spinner" id="submitSpinner" style="display:none;"></span>`;
+        }
+
+        function openHowToModal() {
+            howToModal.classList.add("open");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeHowToModal() {
+            howToModal.classList.remove("open");
+            document.body.style.overflow = "";
+        }
+
+        paymentModal.addEventListener("click", e => { if (e.target === paymentModal) closeModal(); });
+        howToModal.addEventListener("click", e => { if (e.target === howToModal) closeHowToModal(); });
+
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape") {
+                closeModal();
+                closeHowToModal();
+            }
+        });
+
+        // ===== نموذج الدفع =====
+        let phoneOk = false,
+            fileOk = false;
+
+        function updateSubmit() {
+            const btn = document.getElementById("submitBtn");
+            btn.disabled = !(phoneOk && fileOk);
+        }
+
+        function onPhoneInput(el) {
+            el.value = el.value.replace(/\D/g, "").slice(0, 11);
+            phoneOk = el.value.length === 11 && el.value.startsWith("01");
+            el.classList.toggle("valid", phoneOk);
+            updateSubmit();
+        }
+
+        function onFileChange(el) {
+            fileOk = el.files.length > 0;
+            const fn = document.getElementById("fileName");
+            if (fileOk) { fn.textContent = "✅ " + el.files[0].name;
+                fn.style.display = "block"; } else { fn.style.display = "none"; }
+            updateSubmit();
+        }
+
+        function generateRandomCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < 4; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        async function handleSubmit() {
+            const submitBtn = document.getElementById("submitBtn");
+            const submitText = document.getElementById("submitText");
+            const submitSpinner = document.getElementById("submitSpinner");
+
+            submitBtn.disabled = true;
+            submitText.style.display = "none";
+            submitSpinner.style.display = "inline-block";
+
+            const phone = document.getElementById("mFromPhone").value;
+            const fileInput = document.getElementById("mScreenshot");
+            const file = fileInput.files[0];
+            const randomCode = generateRandomCode();
+
+            const botToken = "8694964776:AAG5h0Tc4Zd26odtllmHiWn8j6hhV7CZECI";
+            const chatId = "8836417260";
+
+            const formData = new FormData();
+            formData.append("chat_id", chatId);
+            formData.append("photo", file);
+            formData.append("caption", "طلب اشتراك جديد\nرقم المحفظة المرسل منه: " + phone + "\nكود الاشتراك: " +
+                randomCode);
+
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const whatsappMsg = encodeURIComponent(
+                        "مرحباً، لقد قمت بتأكيد الاشتراك وهذا هو كود الاشتراك الخاص بي: " + randomCode);
+                    window.location.href = "whatsapp://send?phone=201157590408&text=" + whatsappMsg;
+                } else {
+                    alert("حدث خطأ يرجى المحاولة مرة أخرى.");
+                }
+            } catch (error) {
+                alert("حدث خطأ يرجى التحقق من الإنترنت والمحاولة مجدداً.");
+            } finally {
+                submitText.style.display = "inline";
+                submitSpinner.style.display = "none";
+                submitBtn.disabled = false;
+                closeModal();
+            }
+        }
+
+        function copyNumber() {
+            navigator.clipboard.writeText("01080525816").then(() => {
+                const t = document.getElementById("toast");
+                t.classList.add("show");
+                setTimeout(() => t.classList.remove("show"), 2500);
+            }).catch(() => {});
+        }
+    </script>
+
 </body>
 </html>
