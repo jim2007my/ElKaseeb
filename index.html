@@ -1022,7 +1022,7 @@
                 <div class="input-group">
                     <label>📲 حول قيمة الاشتراك على هذا الرقم (اضغط للنسخ)</label>
                     <div class="transfer-card" onclick="copyNumber()">
-                        <div class="transfer-number">01080525816</div>
+                        <div class="transfer-number">01229785379</div>
                         <div class="transfer-hint">اضغط للنسخ</div>
                     </div>
                 </div>
@@ -1101,7 +1101,7 @@
         tick();
         setInterval(tick, 1000);
 
-        // ===== إحصائيات تعتمد على الوقت =====
+        // ===== إحصائيات تعتمد على الوقت (معدلة لضمان عدم النقصان) =====
         const subscribersEl = document.getElementById("subscribersCount");
         const seatsEl = document.getElementById("remainingSeats");
         let subscribers = 550;
@@ -1122,10 +1122,15 @@
             // تذبذب عشوائي موجب (يعتمد على الوقت) يصل إلى 9
             const randomOffset = Math.floor(Math.abs(Math.sin(now / 10000)) * 9);
 
-            let subscribersVal = Math.min(2000, base + randomOffset);
-            if (subscribersVal < 550) subscribersVal = 550;
+            let newSubscribers = Math.min(2000, base + randomOffset);
+            // ضمان عدم النقصان: إذا كانت القيمة الجديدة أقل من القيمة الحالية، نبقى على القيمة الحالية
+            if (newSubscribers < subscribers) {
+                newSubscribers = subscribers;
+            }
+            // أيضاً لا نتجاوز 2000
+            if (newSubscribers > 2000) newSubscribers = 2000;
 
-            subscribers = subscribersVal;
+            subscribers = newSubscribers;
             seats = 2000 - subscribers;
 
             subscribersEl.textContent = subscribers;
@@ -1295,7 +1300,7 @@
         }
 
         function copyNumber() {
-            navigator.clipboard.writeText("01080525816").then(() => {
+            navigator.clipboard.writeText("01229785379").then(() => {
                 const t = document.getElementById("toast");
                 t.classList.add("show");
                 setTimeout(() => t.classList.remove("show"), 2500);
